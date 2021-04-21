@@ -3,6 +3,7 @@
 
 // playground for testing things
 // run with python3 build.py --test
+// this will be removed in the future in favor of test written in Java
 int main() {
 
 	lib_init();

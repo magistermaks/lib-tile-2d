@@ -9,13 +9,15 @@
 
 using byte = unsigned char;
 
+#warning The API is still missing many features, dont treat it as final or stable!
+
 /// Initialize LibTile2d
-FUNC bool init() {
+FUNC bool engine_init() {
 	return lib_init();
 }
 
 /// Initialize LibTile2d
-FUNC void exit() {
+FUNC void engine_exit() {
 	lib_exit();
 }
 
@@ -61,7 +63,7 @@ FUNC void* resource_create( void* resource_handle, int tile ) {
 }
 
 /// Add light component to resource
-FUNC void resource_add_light( byte r, byte r, byte g ) {
+FUNC void resource_add_light( byte r, byte g, byte b ) {
 
 }
 

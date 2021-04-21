@@ -34,7 +34,7 @@ from utils import *
 
 # get temporary workspace
 tmp_path = set_tmp_path( tempfile.gettempdir() + "/tte-tmp" )
-project = "TerraTileEngine"
+project = "LibTile2d"
 
 # parse cl args
 parser = argparse.ArgumentParser( description="C/C++ build system" )
@@ -232,7 +232,7 @@ print( "\nLinking Targets..." )
 
 # link targets
 shared = comcfg["shared"]["linker"]
-link( syscfg["path"] + "/libtile2d" + syscfg["lib"], ["/src/api.o"] )
+link( syscfg["path"] + "/libtile2d" + syscfg["lib"], ["/src/api.o"], shared )
 
 # delete tmp directory
 if not args.workspace:

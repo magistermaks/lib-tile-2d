@@ -29,7 +29,7 @@ import re
 # parse cl args
 parser = argparse.ArgumentParser( description="Dynamic binding generator" )
 parser.add_argument( "--source", help="select the source file", type=str, default="./src/api.cpp" )
-parser.add_argument( "--output", help="select the output file", type=str, default="./api.java" )
+parser.add_argument( "--output", help="select the output file", type=str, default="./java/net/darktree/libtile2d/binding/Library.java" )
 parser.add_argument( "--verbose", help="print some garbage to console", action="store_true" )
 args = parser.parse_args()
     

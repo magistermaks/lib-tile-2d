@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+}
+
+group 'net.darktree'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation group: 'com.sun.jna', name: 'jna', version: '3.0.9'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test.shouldRunAfter(build)
+
+test {
+
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}

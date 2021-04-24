@@ -79,7 +79,7 @@ FUNC void resource_add_frame( int id ) {
 
 
 /// Create new Layer object
-FUNC void* layer_new( void* parent ) {
+FUNC void* layer_new() {
 
 }
 
@@ -93,8 +93,18 @@ FUNC void layer_set_index( void* layer, long index ) {
 
 }
 
-/// Set layer's x, y, and rotation
-FUNC void layer_set_position( void* layer, float x, float y, float r ) {
+/// Set layer's x, y
+FUNC void layer_set_position( void* layer, float x, float y ) {
+
+}
+
+/// Set layer's rotation
+FUNC void layer_set_rotation( void* layer, float rotation ) {
+
+}
+
+/// Set layer's rotation
+FUNC void layer_set_scale( void* layer, float scale ) {
 
 }
 
@@ -103,33 +113,23 @@ FUNC void layer_set_map( void* layer, void* map ) {
 
 }
 
-/// Get layer's z-index
-FUNC long layer_get_index( void* layer ) {
-
-}
-
-/// Get layer's position x
-FUNC float layer_get_posx( void* layer ) {
-
-}
-
-/// Get layer's position y
-FUNC float layer_get_posy( void* layer ) {
-
-}
-
-/// Get layer's rotation
-FUNC float layer_get_rotation( void* layer ) {
-
-}
-
 /// Create new tile map given a map trait
-FUNC void* map_new( byte trait ) {
+FUNC void* map_new( byte trait, int x, int y ) {
 
 }
 
-/// Set tile at position, this expands the map if required
+/// Set tile at position
 FUNC void map_set_tile( void* map, int x, int y, int tile ) {
+
+}
+
+/// expand map to given size
+FUNC void map_expand( void* map, int x, int y ) {
+
+}
+
+/// shrink map to given size
+FUNC void map_shrink( void* map, int x, int y ) {
 
 }
 

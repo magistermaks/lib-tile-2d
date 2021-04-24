@@ -97,13 +97,13 @@ patform_config = {
     "nt": {
         "exe": ".exe",
         "lib": ".dll",
-        "path": "C:/terra-tile-engine",
+        "path": "C:/libtile2d",
         "sep": "\\"
     }
 }
 
 if os.name == "posix":
-    patform_config["posix"]["path"] = os.getenv('HOME') + "/terra-tile-engine"
+    patform_config["posix"]["path"] = os.getenv('HOME') + "/libtile2d"
 
 syscfg = load_system_config(patform_config, os.name)
 comcfg = load_compiler_config(compilers_config, args.compiler)

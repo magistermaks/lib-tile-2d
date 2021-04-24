@@ -47,7 +47,7 @@ public interface TileLibrary extends Library {
     void resource_add_frame( int id );
 
     /// Create new Layer object
-    Pointer layer_new( Pointer parent );
+    Pointer layer_new();
 
     /// Delete Layer object
     void layer_free( Pointer layer );
@@ -55,29 +55,29 @@ public interface TileLibrary extends Library {
     /// Set layer's z-index
     void layer_set_index( Pointer layer, long index );
 
-    /// Set layer's x, y, and rotation
-    void layer_set_position( Pointer layer, float x, float y, float r );
+    /// Set layer's x, y
+    void layer_set_position( Pointer layer, float x, float y );
+
+    /// Set layer's rotation
+    void layer_set_rotation( Pointer layer, float rotation );
+
+    /// Set layer's rotation
+    void layer_set_scale( Pointer layer, float scale );
 
     /// Set tile map
     void layer_set_map( Pointer layer, Pointer map );
 
-    /// Get layer's z-index
-    long layer_get_index( Pointer layer );
-
-    /// Get layer's position x
-    float layer_get_posx( Pointer layer );
-
-    /// Get layer's position y
-    float layer_get_posy( Pointer layer );
-
-    /// Get layer's rotation
-    float layer_get_rotation( Pointer layer );
-
     /// Create new tile map given a map trait
-    Pointer map_new( byte trait );
+    Pointer map_new( byte trait, int x, int y );
 
-    /// Set tile at position, this expands the map if required
+    /// Set tile at position
     void map_set_tile( Pointer map, int x, int y, int tile );
+
+    /// expand map to given size
+    void map_expand( Pointer map, int x, int y );
+
+    /// shrink map to given size
+    void map_shrink( Pointer map, int x, int y );
 
     /// Delete tile map
     void map_free( Pointer map );

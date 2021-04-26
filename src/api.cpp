@@ -9,7 +9,12 @@
 
 using byte = unsigned char;
 
-#warning The API is still missing many features, dont treat it as final or stable!
+#define WARNING "The API is still missing many features, dont treat it as final or stable!"
+#ifdef _WIN32
+#  pragma message( WARNING )
+#else
+#  warning WARNING
+#endif
 
 /// Initialize LibTile2d
 FUNC bool engine_init() {
@@ -49,7 +54,7 @@ FUNC void window_set_resource_handle( void* resource_handle ) {
 
 /// Create and open new Window object
 FUNC void* resource_handle_new() {
-
+	return nullptr;
 }
 
 /// Delete and close a window object
@@ -59,7 +64,7 @@ FUNC void resource_handle_free( void* resource_handle ) {
 
 /// Create new Resource object
 FUNC void* resource_create( void* resource_handle, int tile ) {
-
+	return nullptr;
 }
 
 /// Add light component to resource
@@ -80,7 +85,7 @@ FUNC void resource_add_frame( int id ) {
 
 /// Create new Layer object
 FUNC void* layer_new() {
-
+	return nullptr;
 }
 
 /// Delete Layer object
@@ -115,7 +120,7 @@ FUNC void layer_set_map( void* layer, void* map ) {
 
 /// Create new tile map given a map trait
 FUNC void* map_new( byte trait, int x, int y ) {
-
+	return nullptr;
 }
 
 /// Set tile at position

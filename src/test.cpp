@@ -4,7 +4,7 @@
 // playground for testing things
 // run with python3 build.py --test
 // this will be removed in the future in favor of test written in Java
-int main() {
+int main(int argc, char* argv[]) {
 
 	lib_init();
 	Window window( "Hello!", 300, 300 );
@@ -24,5 +24,5 @@ int main() {
 	}
 
 	lib_exit();
-
+	return 0;
 }

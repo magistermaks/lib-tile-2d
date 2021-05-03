@@ -10,13 +10,13 @@
 int main(int argc, char* argv[]) {
 
 	if (!Engine::lib_init()) return 0;
-	Window window("Hello!", 1280, 720);
+	Window window("Hello!", 1000, 1000);
+	Layer layer(100, 100);
+	layers.push_back(&layer);
 	if (!Engine::lib_initGL(&window)) return 0;
 
 	if (window.isOk()) {
-
 		bool quit = false;
-		SDL_Event e;
 
 		//Enable text input
 		SDL_StartTextInput();

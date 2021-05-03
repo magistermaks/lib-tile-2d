@@ -1,7 +1,9 @@
 
 #include "window.hpp"
+#include "layer.hpp"
 #include <string>
 #include <fstream>
+#include <vector>
 
 Window* _window;
 GLuint gProgramID = 0;
@@ -12,6 +14,8 @@ GLuint gVBO = 0;
 GLuint gIBO = 0;
 
 double time = 0;
+
+std::vector<Layer*> layers;
 
 class Engine {
 private:
@@ -167,30 +171,62 @@ private:
 						//Initialize clear color
 						glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-						GLfloat vertexData[] =
-						{
+						Layer* _layer = layers[0];
+						int wi = _layer->get_data_width() + 1;
+						int he = _layer->get_data_height() + 1;
+						int d_size = wi * he * 2;
+
+						GLfloat* vertexData = new GLfloat[d_size];
+						int i = 0;
+						for (int y = 0; y < he; y++) {
+							for (int x = 0; x < wi; x++) {
+								vertexData[i] = 2 * (float)x / (float)wi - 1.0f;
+								vertexData[i + 1] = 2 * (float)y / (float)he - 1.0f;
+								i += 2;
+							}
+						}
+
+						/*{
 							-0.6f, -0.5f,//left bottom
 							 0.6f, -0.5f,//right bottom
 							 0.5f,  0.5f,//right up
 							-0.5f,  0.5f//left up
-						};
+						};*/
+
+
+						for (int ii = 0; ii < wi; ii++) {
+							_layer->addTile(ii, sin(ii * 0.2) * he / 8 + he / 2);
+						}
 
 						//IBO data
-						GLuint indexData[] =
-						{
-							0, 1, 2,
-							0, 2, 3
-						};
+						std::vector<GLuint> indexData;
+						for (int y = 0; y < he - 1; y++) {
+							for (int x = 0; x < wi - 1; x++) {
+								if (_layer->get_data()[x * (wi - 1) + y] > 0) {
+									indexData.push_back(x + y * wi);
+									indexData.push_back(x + 1 + y * wi);
+									indexData.push_back(x + wi + y * wi);
+
+									indexData.push_back(x + 1 + y * wi);
+									indexData.push_back(x + wi + y * wi);
+									indexData.push_back(x + 1 + y * wi + wi);
+								}
+							}
+						}
+						/*{
+							0, 1, 10,
+							1, 10, 11
+						};*/
 
 						//Create VBO
 						glGenBuffers(1, &gVBO);
 						glBindBuffer(GL_ARRAY_BUFFER, gVBO);
-						glBufferData(GL_ARRAY_BUFFER, 2 * 4 * sizeof(GLfloat), vertexData, GL_STATIC_DRAW);
+						glBufferData(GL_ARRAY_BUFFER, d_size * sizeof(GLfloat), vertexData, GL_STATIC_DRAW);
 
 						//Create IBO
 						glGenBuffers(1, &gIBO);
 						glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gIBO);
-						glBufferData(GL_ELEMENT_ARRAY_BUFFER, 2 * 3 * sizeof(GLuint), indexData, GL_STATIC_DRAW);
+						glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexData.size() * sizeof(GLuint), indexData.data(), GL_STATIC_DRAW);
 					}
 				}
 			}
@@ -275,7 +311,7 @@ public:
 		//Enable vertex position
 		glEnableVertexAttribArray(gVertexPos2DLocation);
 
-		time += 0.01;
+		//time += 0.01;
 		//Set vertex data
 		glBindBuffer(GL_ARRAY_BUFFER, gVBO);
 		//GLfloat* ptr = (GLfloat*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
@@ -285,7 +321,7 @@ public:
 
 		//Set index data and render
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gIBO);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
+		glDrawElements(GL_TRIANGLES, layers[0]->get_tiles_count() * 6, GL_UNSIGNED_INT, NULL);
 
 		//Disable vertex position
 		glDisableVertexAttribArray(gVertexPos2DLocation);

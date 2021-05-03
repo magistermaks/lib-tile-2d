@@ -1,28 +1,34 @@
 
 #include "engine/engine.cpp"
+#include <string>
 
 // playground for testing things
 // run with python3 build.py --test
 // this will be removed in the future in favor of test written in Java
+
+
 int main(int argc, char* argv[]) {
 
-	lib_init();
-	Window window( "Hello!", 300, 300 );
+	if (!Engine::lib_init()) return 0;
+	Window window("Hello!", 1280, 720);
+	if (!Engine::lib_initGL(&window)) return 0;
 
-	if( window.isOk() ) {
+	if (window.isOk()) {
 
-		SDL_Surface* surface = SDL_GetWindowSurface( window.getHandle() );
+		bool quit = false;
+		SDL_Event e;
 
-		//Fill the surface white
-		SDL_FillRect( surface, NULL, SDL_MapRGB( surface->format, 0xFF, 0xFF, 0xFF ) );
+		//Enable text input
+		SDL_StartTextInput();
 
-		//Update the surface
-		SDL_UpdateWindowSurface( window.getHandle() );
+		while (!quit) {
+			Engine::render();
 
-		// wait 4 seconds
-		SDL_Delay( 4000 );
+			//Update screen
+			SDL_GL_SwapWindow(window.getHandle());
+		}
 	}
 
-	lib_exit();
+	Engine::lib_exit();
 	return 0;
 }
